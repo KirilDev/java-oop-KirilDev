@@ -2,10 +2,13 @@ package rvt.person_and_subclasses;
 
 public class Teacher extends Person {
 
-    private String proficiency;
-    public Teacher(String name, String surname, String address, String email, String proficiency) {
-        super(name, surname, address, email);
-        this.proficiency = proficiency;
+    private int salary;
+    public Teacher(String name, String address, int salary) {
+        super(name, address);
+        this.salary = salary;
     }
-    
+
+     public String toString(){
+       return super.toString()+"\n  salary "+this.salary + " euro/month";
+    }    
 }
