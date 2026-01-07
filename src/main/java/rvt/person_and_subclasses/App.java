@@ -25,5 +25,12 @@ public class App {
         persons.add(new Student("Ollie", "6381 Hollywood Blvd. Los Angeles 90028"));
 
         printPersons(persons);
+
     }
+    public static void printPersons(ArrayList<Person> persons){
+    for (Person person : persons){
+        System.out.println(person);
+    }
+}
+    
 }
