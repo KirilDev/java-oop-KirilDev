@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ToDoList {
     public static void main(String[] args){
-        File file = new File("/todo.csv");
+        File file = new File("data/todo.csv");
         try {
             Scanner scanner = new Scanner(file);
             
