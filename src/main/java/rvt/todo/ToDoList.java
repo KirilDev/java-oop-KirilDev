@@ -1,10 +1,24 @@
 package rvt.todo;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
 public class ToDoList {
-    private ArrayList<String> tasks;
+
+    private int id;
+    private String task;
+
+    public ToDoList(int id, String task){
+        this.id = id;
+        this.task = task;
+    }
+
+    public int getID(){
+        return id;
+    }
+    public String getTask(){
+        return task;
+    }
+
+    @Override
+    public String toString(){
+        return id + ", " + task;
+    }
 }
