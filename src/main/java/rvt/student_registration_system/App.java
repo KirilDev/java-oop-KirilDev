@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import rvt.todo.ToDoList;
-
 public class App {
     
     private static final String DATA_ACCESS = "data/students.csv";
@@ -121,24 +119,39 @@ public class App {
     private static void updateStudentById() {
 
     }
-
      private static void loadFromFile(){
 
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(DATA_ACCESS))) {
 
             String line;
             while ((line = bufferedReader.readLine()) != null) {
 
-                String[] parts = line.split(",", 2);
+                String[] parts = line.split(",\\s*");
 
-                int id = Integer.parseInt(parts[0]);
-                String task = parts[1];
+                if (parts.length < 6) {
+                    // skip malformed lines
+                    continue;
+                }
 
-                students.add(new ToDoList(id, task));
+                int id;
+                try {
+                    id = Integer.parseInt(parts[0].trim());
+                } catch (NumberFormatException e) {
+                    // skip lines with invalid id
+                    continue;
+                }
+
+                String name = parts[1].trim();
+                String surname = parts[2].trim();
+                String email = parts[3].trim();
+                String studentClass = parts[4].trim();
+                String program = parts[5].trim();
+
+                students.add(new Student(id, name, surname, email, studentClass, program));
             }
 
-            System.out.println("Tasks loaded successfully:" + "\n ");
+            System.out.println("Students loaded successfully:" + "\n ");
 
             showStudentsTable();
 
@@ -148,3 +161,4 @@ public class App {
         }
     }
 }
+
