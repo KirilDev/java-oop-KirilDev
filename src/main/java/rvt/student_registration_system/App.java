@@ -1,12 +1,19 @@
 package rvt.student_registration_system;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import rvt.todo.ToDoList;
+
 public class App {
     
-    private static final String DATA_ACCESS = "data/students.cvs";
+    private static final String DATA_ACCESS = "data/students.csv";
     private static List<Student> students = new ArrayList<>();
     
     
@@ -33,7 +40,7 @@ public class App {
                     addNewStudent(scanner);
                     break;
                 case 2:
-                    loadStudentTable();    
+                    showStudentsTable();    
                     break;
 
                 case 3:
@@ -78,7 +85,7 @@ public class App {
 
 
         int Id = students.isEmpty() ? 1 : students.get(students.size() - 1).getId() + 1;
-        students.add(new Student(Id, studentName, studentSurname, studentEmail, studentClass, studentProgram, studentPersonalCode));
+        students.add(new Student(Id, studentName, studentSurname, studentEmail, studentClass, studentProgram));
 
         fileSaver();
 
@@ -86,11 +93,25 @@ public class App {
     }
 
     private static void fileSaver() {
- 
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(DATA_ACCESS))) {
+            for (Student student: students){
+                bufferedWriter.write(student.getId() + ", " + student.getName() + student.getSurname() + student.getClass() + student.getProgram());
+                bufferedWriter.newLine();
+            }
+        } catch (Exception e) {
+            System.out.println("Error during file update...");
+        }
     }
 
-    private static void loadStudentTable() {
+    private static void showStudentsTable() {
+       if (students.isEmpty()) {
+        System.out.println("No students to show...");
+        return;
+       }
 
+       for (Student student: students) {
+        System.out.println(student.getId() + ": " + student.getName() + " " + student.getSurname() + " " + student.getEmail() + " " + student.getClass() + " " + student.getProgram());
+       }
     }
 
     private static void removeStudentById() {
@@ -99,5 +120,31 @@ public class App {
 
     private static void updateStudentById() {
 
+    }
+
+     private static void loadFromFile(){
+
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME))) {
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+
+                String[] parts = line.split(",", 2);
+
+                int id = Integer.parseInt(parts[0]);
+                String task = parts[1];
+
+                students.add(new ToDoList(id, task));
+            }
+
+            System.out.println("Tasks loaded successfully:" + "\n ");
+
+            showStudentsTable();
+
+            System.out.println(" ");
+        } catch (IOException e) {
+            System.out.println("Error while reading the file.");
+        }
     }
 }

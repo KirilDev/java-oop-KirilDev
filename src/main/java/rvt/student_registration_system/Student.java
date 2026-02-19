@@ -7,6 +7,7 @@ public class Student{
     private String email;
     private String eduClass;
     private String program;
+    private int personalCode;
 
     public Student(int id, String name, String surname, String email, String eduClass, String program){
         this.id = id;
@@ -23,8 +24,23 @@ public class Student{
     public String getSurname(){
         return surname;
     }
-    public int getId() {
+    public int getId(){
         return id;
+    }
+    public String getStudentEmail(){
+        return email;
+    }
+    public String getStudentClass() {
+        return eduClass;
+    }
+    public String getProgram(){
+        return program;
+    }
+    public int getPersonalCode(){
+        return personalCode;
+    }
+    public String getEmail() {
+        return email;
     }
 
     @Override
