@@ -1,3 +1,4 @@
+package rvt.student_registration_system;
 public class Student{
 
     private int id;

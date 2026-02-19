@@ -1,9 +1,14 @@
+package rvt.student_registration_system;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
     
     private static final String DATA_ACCESS = "data/students.cvs";
     private static List<Student> students = new ArrayList<>();
+    
     
     public static void main(String[] args){
         
